@@ -27,17 +27,38 @@ def get_cook_book_from_file(file_path):
 
 # Задача №1 Считывание файла
 file_path = 'flz/recipes.txt'
-first_cook_book = get_cook_book_from_file(file_path)
+my_cook_book = get_cook_book_from_file(file_path)
 print(f'Словарь кулинарной книги:')
-for entry in first_cook_book.keys():
+for entry in my_cook_book.keys():
     print(f'{entry}:')
-    [print(item) for item in first_cook_book[entry]]
+    [print(item) for item in my_cook_book[entry]]
 
 
 # Задача №2 функция для списка блюд
-def get_shop_list_by_dishes(dishes, person_count):
-    pass
+def get_shop_list_by_dishes(person_count, cook_book, *dishes):
+    all_dishes = []
+    shopping_list = []
+    # for dish in dishes:
+    #     if all_dishes is not None:
+    #         all_dishes += cook_book[dish]
+    #     else:
+    #         all_dishes = cook_book[dish]
+    #
+    # while all_dishes is not None:
+    #     single_ing = all_dishes.pop()
+    #     if shopping_list is not None:
+    #         for entry in shopping_list:
+    #             if single_ing['ingredient_name'] == entry['ingredient_name']:
+    #                 pass
+    #
+    #     else:
+    #         shopping_list = single_ing
+    #
+    #
+    # print(all_dishes)
+
 
 
 my_dishes = ['Запеченный картофель', 'Омлет', 'Фахитос']
 my_persons_count = 2
+get_shop_list_by_dishes(my_persons_count, my_cook_book, *my_dishes)
