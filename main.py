@@ -7,7 +7,8 @@ def set_of_tree_to_dict(*some_set):
         better_set = (some_set[0].strip(), int(some_set[1].strip()), some_set[2].strip())
         dict_names = ['ingredient_name', 'quantity', 'measure']
         output = dict(zip(dict_names, better_set))
-        return output
+
+    return output
 
 
 # функция считывания с файла кулинарной книги
@@ -55,6 +56,7 @@ def read_file_and_count_lines(dir_path, file_name):
             counter += 1
 
     data_dict['lines'] = counter
+
     return data_dict
 
 
@@ -84,6 +86,7 @@ if files_list:
     for each_file in files_list:
         if each_file.split('.')[-1] == 'txt':
             all_files_list += [read_file_and_count_lines(my_dir_path, each_file)]
+
     all_files_list.pop(0)
 
     if all_files_list:
@@ -93,8 +96,10 @@ if files_list:
         with open(new_file_name, 'w', encoding='utf-8') as w:
             for entry in sorted_all_files_list:
                 w.write(f'{list(entry.keys())[0]}\n{entry["lines"]}\n{list(entry.values())[0]}\n')
+
     else:
         print('неверный формат файлов в папке')
+
 else:
     print('похоже, папка пустая')
 
