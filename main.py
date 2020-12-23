@@ -25,40 +25,40 @@ def get_cook_book_from_file(file_path):
     return some_cook_book
 
 
+# функция для составления списка покупок
+def get_shop_list_by_dishes(person_count, cook_book, *dishes):
+    # список ингредиентов с повторениями
+    all_dishes = ['spam']
+    shopping_list = {}
+    for dish in dishes:
+        all_dishes += [{unit.pop('ingredient_name'): unit} for unit in cook_book[dish] if dish in cook_book.keys()]
+    all_dishes.pop(0)
+
+    # список ингредиентов без повторений
+    # мне кажется, добжен быть способ слияния словарей, но я его не нашёл
+    for entry in all_dishes:
+        if shopping_list.get(list(entry.keys())[0]) is not None:
+            shopping_list[list(entry.keys())[0]]['quantity'] += list(entry.values())[0]['quantity'] * person_count
+        else:
+            shopping_list[list(entry.keys())[0]] = list(entry.values())[0]
+            shopping_list[list(entry.keys())[0]]['quantity'] = list(entry.values())[0]['quantity'] * person_count
+
+    return shopping_list
+
+
 # Задача №1 Считывание файла
-file_path = 'flz/recipes.txt'
-my_cook_book = get_cook_book_from_file(file_path)
+my_file_path = 'flz/recipes.txt'
+my_cook_book = get_cook_book_from_file(my_file_path)
 print(f'Словарь кулинарной книги:')
 for entry in my_cook_book.keys():
     print(f'{entry}:')
     [print(item) for item in my_cook_book[entry]]
 
 
-# Задача №2 функция для списка блюд
-def get_shop_list_by_dishes(person_count, cook_book, *dishes):
-    all_dishes = []
-    shopping_list = []
-    # for dish in dishes:
-    #     if all_dishes is not None:
-    #         all_dishes += cook_book[dish]
-    #     else:
-    #         all_dishes = cook_book[dish]
-    #
-    # while all_dishes is not None:
-    #     single_ing = all_dishes.pop()
-    #     if shopping_list is not None:
-    #         for entry in shopping_list:
-    #             if single_ing['ingredient_name'] == entry['ingredient_name']:
-    #                 pass
-    #
-    #     else:
-    #         shopping_list = single_ing
-    #
-    #
-    # print(all_dishes)
-
-
-
-my_dishes = ['Запеченный картофель', 'Омлет', 'Фахитос']
-my_persons_count = 2
-get_shop_list_by_dishes(my_persons_count, my_cook_book, *my_dishes)
+# Задача №2 Список покупок
+my_dishes = ['Омлет', 'Фахитос']
+my_persons_count = 3
+my_shopping_list = get_shop_list_by_dishes(my_persons_count, my_cook_book, *my_dishes)
+print(f'\nДля приготовления {", ".join(my_dishes)} на {my_persons_count} человека необходимо купить:')
+for entry in my_shopping_list:
+         print(f'{entry} : {my_shopping_list[entry]["quantity"]} {my_shopping_list[entry]["measure"]}')
